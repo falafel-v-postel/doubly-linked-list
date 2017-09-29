@@ -2,33 +2,44 @@ const Node = require('./node');
 
 class LinkedList {
     constructor() {
-        this._length=0;
-        this.head=null;
-        this.tail=null;
+        this.length=0;
+        this._head=null;
+        this._tail=null;
     }
 
     append(data) {
-        var node=new Node (data);
-        if (this._length) {
-            this.tail.next=node;
-            node.previous=this.tail;
-            this.tail=node;
+        const node=new Node (data);
+        if (this.length) {
+            this._tail.next=node;
+            node.previous=this._tail;
+            this._tail=node;
         } else {
-            this.tail=node;
-            this.head=node;
+            this._tail=node;
+            this._head=node;
         }
-            this._length++;
-        
-            return node;
+        this.length++;
+        return node;
     }
 
-    head() {}
+    head() {
+        return this._head.data;
+    }
 
-    tail() {}
+    tail() {
+        return this._tail.data;
+    }
 
-    at(index) {}
+    at(index) {
+        let currentNode=this._head;
+        for (let i=0; i<index; i++) {
+            currentNode=currentNode.next;
+        }    
+        return currentNode.data;      
+    }
 
-    insertAt(index, data) {}
+    insertAt(index, data) {
+
+    }
 
     isEmpty() {}
 
@@ -36,9 +47,25 @@ class LinkedList {
 
     deleteAt(index) {}
 
-    reverse() {}
+    reverse() {
+        let currentNode=this._head;
+        for(let i=0; i<length; i++) {
+            currentNode.next = currentNode.reverse(); // [ 3, 2, 1]
+        }
+        return this; // 3, 2, 1
+        
+    }
 
-    indexOf(data) {}
+    indexOf(data) {
+        let i=0;
+        let currentNode=this._head;
+        while (data!==currentNode.data){
+            if (!currentNode.next) {return -1}; // если ничего не нашли   
+        currentNode = currentNode.next;   
+        i++;
+        }          
+        return i;         
+    }
 }
 
 module.exports = LinkedList;
